@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMT Multi-Services</title>
+<style>
+:root{--navy:#06265f;--blue:#1677ff;--red:#e52323;--orange:#f59b12;--green:#18a84b;--cyan:#11a9df;--yellow:#f7bf16;--bg:#f4f6fa}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:#13213b}
+.app{display:flex;min-height:100vh}.side{width:230px;background:linear-gradient(180deg,#06265f,#031d4a);color:#fff;padding:20px 14px;position:fixed;height:100vh}.logo{font-size:28px;font-weight:900;text-align:center;margin:10px 0}.sub{text-align:center;font-size:12px;opacity:.8;margin-bottom:22px}.nav button{width:100%;border:0;background:transparent;color:white;text-align:left;padding:12px 14px;border-radius:12px;margin:4px 0;font-size:15px;cursor:pointer}.nav button.active,.nav button:hover{background:#1677ff}.logout{margin-top:18px;background:#143d73!important}
+.main{margin-left:230px;width:calc(100% - 230px);padding:24px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.top h1{margin:0;font-size:28px}.top p{margin:4px 0;color:#68758b}.user{background:#fff;padding:10px 14px;border-radius:14px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:#fff;border-radius:18px;padding:0 0 14px;overflow:hidden;box-shadow:0 3px 14px #0000000c}.card .bar{padding:13px 16px;color:#fff;font-weight:800}.red{background:var(--red)}.orange{background:var(--orange)}.green{background:var(--green)}.cyan{background:var(--cyan)}.card .body{padding:14px 16px}.money{font-size:22px;font-weight:800;margin:8px 0 14px}.btn{border:0;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:700}.full{width:100%}.btn-red{background:var(--red);color:#fff}.btn-orange{background:var(--orange);color:#fff}.btn-green{background:var(--green);color:#fff}.btn-blue{background:var(--blue);color:#fff}.btn-yellow{background:var(--yellow);color:#111}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0}.stat,.panel{background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px #0000000c}.stat b{font-size:25px}.grid{display:grid;grid-template-columns:1.4fr .9fr;gap:16px}.panel h2{font-size:18px;margin:0 0 14px}.tx{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:12px 0}.tx:last-child{border-bottom:0}.tag{font-size:11px;padding:4px 7px;border-radius:20px;background:#e9f7ed;color:#14833a}.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.quick button{padding:16px 8px;border:1px solid #e5e8ee;background:#fff;border-radius:14px;cursor:pointer;font-weight:700}.section{display:none}.section.active{display:block}.form{display:grid;gap:12px;max-width:650px}.form label{font-weight:700}.form input,.form select{padding:12px;border:1px solid #ccd3df;border-radius:10px;font-size:15px}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:11px;border-bottom:1px solid #eee}.notice{padding:12px;border-radius:12px;background:#fff6d8;margin-bottom:14px}.small{font-size:12px;color:#6c778a}
+@media(max-width:850px){.side{width:76px}.side .hide{display:none}.main{margin-left:76px;width:calc(100% - 76px);padding:14px}.cards{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="logo">BMT</div><div class="sub">MULTI-SERVICES<br><span class="hide">Mache Touris</span></div>
+  <div class="nav">
+    <button class="active" onclick="show('dash',this)">🏠 <span class="hide">Tableau de bord</span></button>
+    <button onclick="show('tx',this)">🧾 <span class="hide">Tranzaksyon</span></button>
+    <button onclick="show('stock',this)">🧊 <span class="hide">Dlo / Glas</span></button>
+    <button onclick="show('reports',this)">📊 <span class="hide">Rapò</span></button>
+    <button onclick="show('settings',this)">⚙️ <span class="hide">Anviwònman</span></button>
+  </div>
+</aside>
+<main class="main">
+<section id="dash" class="section active">
+<div class="top"><div><h1>Byenveni, BMT !</h1><p>Jere biznis ou fasil e byen òganize.</p></div><div class="user">👤 Admin</div></div>
+<div class="cards">
+<div class="card"><div class="bar red">MONCASH</div><div class="body"><div>Disponib</div><div class="money" id="mon">0 HTG</div><button class="btn btn-red full" onclick="quick('MonCash')">+ Tranzaksyon</button></div></div>
+<div class="card"><div class="bar orange">NATCASH</div><div class="body"><div>Disponib</div><div class="money" id="nat">0 HTG</div><button class="btn btn-orange full" onclick="quick('NatCash')">+ Tranzaksyon</button></div></div>
+<div class="card"><div class="bar green">SIT PARYAJ</div><div class="body"><div>Disponib</div><div class="money" id="bet">0 HTG</div><button class="btn btn-green full" onclick="quick('Rechaj Paryaj')">+ Tranzaksyon</button></div></div>
+<div class="card"><div class="bar cyan">DLO / GLAS</div><div class="body"><div>Stock glas</div><div class="money"><span id="ice">0</span> sache</div><button class="btn btn-blue full" onclick="show('stock')">+ Vant</button></div></div>
+</div>
+<div class="stats">
+<div class="stat">TOTAL LAJAN DISPONIB<br><b id="total">0 HTG</b><div class="small">Tout sèvis yo</div></div>
+<div class="stat">BENEFIS JODI A<br><b id="profit">0 HTG</b><div class="small">Tranzaksyon + vant</div></div>
+<div class="stat">TRANZAKSYON JODI A<br><b id="count">0</b><div class="small">Tout sèvis yo</div></div>
+</div>
+<div class="grid">
+<div class="panel"><h2>Dènye tranzaksyon yo</h2><div id="recent"></div></div>
+<div class="panel"><h2>Rapò rapid</h2><div class="tx"><span>Total Lajan Antre</span><b id="in">0 HTG</b></div><div class="tx"><span>Total Lajan Soti</span><b id="out">0 HTG</b></div><div class="tx"><span>Benefis Net</span><b id="p2">0 HTG</b></div><button class="btn btn-yellow full" onclick="show('reports')">GADE RAPÒ DETAYE →</button></div>
+</div>
+<div class="panel" style="margin-top:16px"><h2>Aksyon rapid</h2><div class="quick"><button onclick="quick('MonCash')">🔴 MonCash<br><span class="small">Nouvo</span></button><button onclick="quick('NatCash')">🟠 NatCash<br><span class="small">Nouvo</span></button><button onclick="quick('Rechaj Telefòn')">🔵 Rechaj Telefòn<br><span class="small">Nouvo</span></button><button onclick="quick('Rechaj Paryaj')">🟢 Rechaj Paryaj<br><span class="small">Nouvo</span></button><button onclick="show('stock')">🧊 Vant Glas<br><span class="small">Nouvo</span></button><button onclick="show('tx')">🧾 Ajoute Depans<br><span class="small">Nouvo</span></button></div></div>
+</section>
+
+<section id="tx" class="section">
+<div class="top"><div><h1>Nouvo tranzaksyon</h1><p>Antre operasyon an epi sistèm nan ap mete rapò yo ajou.</p></div></div>
+<div class="panel form">
+<label>Sèvis</label><select id="service"><option>MonCash</option><option>NatCash</option><option>Rechaj Telefòn</option><option>Rechaj Paryaj</option></select>
+<label>Tip</label><select id="type"><option value="in">Lajan antre / Cash In</option><option value="out">Lajan soti / Cash Out</option></select>
+<label>Montan (HTG)</label><input id="amount" type="number" min="0" placeholder="Eg. 1000">
+<label>Benefis (HTG)</label><input id="profitInput" type="number" min="0" value="0">
+<label>Nòt</label><input id="note" placeholder="Nimewo kliyan oswa detay">
+<button class="btn btn-blue" onclick="saveTx()">ANREJISTRE TRANZAKSYON</button>
+<div id="msg" class="small"></div>
+</div>
+</section>
+
+<section id="stock" class="section">
+<div class="top"><div><h1>Dlo / Glas</h1><p>Jere stock ak vant yo.</p></div></div>
+<div class="panel form">
+<div class="notice">Stock aktyèl: <b><span id="ice2">0</span> sache</b></div>
+<label>Ajoute stock (sache)</label><input id="addIce" type="number" min="0" placeholder="Eg. 100">
+<label>Vann glas (sache)</label><input id="sellIce" type="number" min="0" placeholder="Eg. 5">
+<label>Pri vant pou chak sache (HTG)</label><input id="icePrice" type="number" min="0" placeholder="Eg. 25">
+<button class="btn btn-blue" onclick="stockAction()">ANREJISTRE</button>
+<div id="stockMsg" class="small"></div>
+</div>
+</section>
+
+<section id="reports" class="section">
+<div class="top"><div><h1>Rapò</h1><p>Rezime aktivite sistèm nan.</p></div></div>
+<div class="panel"><table class="table"><thead><tr><th>Sèvis</th><th>Antre</th><th>Soti</th><th>Benefis</th></tr></thead><tbody id="reportRows"></tbody></table></div>
+</section>
+
+<section id="settings" class="section">
+<div class="top"><div><h1>Anviwònman</h1><p>Konfigirasyon premye vèsyon an.</p></div></div>
+<div class="panel"><h2>Kont administratè</h2><p>Premye vèsyon tès la ap mache lokalman sou aparèy la. Done yo sove nan navigatè a.</p><button class="btn btn-yellow" onclick="resetData()">Reyajiste done tès yo</button></div>
+</section>
+</main></div>
+<script>
+const key='bmt_demo_v1';
+let data=JSON.parse(localStorage.getItem(key)||'null')||{balances:{MonCash:0,NatCash:0,'Rechaj Paryaj':0},profit:0,ice:0,tx:[]};
+function save(){localStorage.setItem(key,JSON.stringify(data));render()}
+function money(n){return Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})+' HTG'}
+function today(){return new Date().toLocaleDateString('en-CA')}
+function show(id,btn){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');if(btn){document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active')};render()}
+function quick(service){show('tx');document.getElementById('service').value=service}
+function saveTx(){
+ let service=document.getElementById('service').value,type=document.getElementById('type').value,amount=+document.getElementById('amount').value,profit=+document.getElementById('profitInput').value,note=document.getElementById('note').value;
+ if(!amount){document.getElementById('msg').textContent='Mete yon montan anvan ou anrejistre.';return}
+ if(data.balances[service]===undefined)data.balances[service]=0;
+ data.balances[service]+=type==='in'?amount:-amount; data.profit+=profit;
+ data.tx.unshift({date:today(),time:new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}),service,type,amount,profit,note});
+ document.getElementById('amount').value='';document.getElementById('profitInput').value=0;document.getElementById('note').value='';
+ document.getElementById('msg').textContent='Tranzaksyon an anrejistre avèk siksè.';save();
+}
+function stockAction(){
+ let add=+document.getElementById('addIce').value||0,sell=+document.getElementById('sellIce').value||0,price=+document.getElementById('icePrice').value||0;
+ if(sell>data.ice+add){document.getElementById('stockMsg').textContent='Stock pa ase.';return}
+ data.ice+=add-sell;
+ if(sell){data.profit+=sell*price;data.tx.unshift({date:today(),time:new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}),service:'Vant Glas',type:'in',amount:sell*price,profit:sell*price,note:sell+' sache'});}
+ document.getElementById('addIce').value='';document.getElementById('sellIce').value='';document.getElementById('icePrice').value='';
+ document.getElementById('stockMsg').textContent='Stock la mete ajou.';save();
+}
+function resetData(){if(confirm('Ou vle efase tout done tès yo?')){localStorage.removeItem(key);location.reload()}}
+function render(){
+ document.getElementById('mon').textContent=money(data.balances.MonCash);document.getElementById('nat').textContent=money(data.balances.NatCash);document.getElementById('bet').textContent=money(data.balances['Rechaj Paryaj']);document.getElementById('ice').textContent=data.ice;document.getElementById('ice2').textContent=data.ice;
+ let total=Object.values(data.balances).reduce((a,b)=>a+Number(b||0),0);document.getElementById('total').textContent=money(total);document.getElementById('profit').textContent=money(data.profit);document.getElementById('p2').textContent=money(data.profit);document.getElementById('count').textContent=data.tx.length;
+ let ins=data.tx.filter(x=>x.type==='in').reduce((a,x)=>a+x.amount,0),outs=data.tx.filter(x=>x.type==='out').reduce((a,x)=>a+x.amount,0);document.getElementById('in').textContent=money(ins);document.getElementById('out').textContent=money(outs);
+ document.getElementById('recent').innerHTML=data.tx.slice(0,7).map(x=>`<div class="tx"><span><b>${x.service}</b><br><span class="small">${x.time} ${x.note||''}</span></span><span><b>${x.type==='in'?'+':'-'}${money(x.amount)}</b><br><span class="tag">Siksè</span></span></div>`).join('')||'<p class="small">Pa gen tranzaksyon ankò.</p>';
+ let services=['MonCash','NatCash','Rechaj Telefòn','Rechaj Paryaj','Vant Glas'];document.getElementById('reportRows').innerHTML=services.map(s=>{let a=data.tx.filter(x=>x.service===s&&x.type==='in').reduce((z,x)=>z+x.amount,0),o=data.tx.filter(x=>x.service===s&&x.type==='out').reduce((z,x)=>z+x.amount,0),p=data.tx.filter(x=>x.service===s).reduce((z,x)=>z+x.profit,0);return `<tr><td>${s}</td><td>${money(a)}</td><td>${money(o)}</td><td>${money(p)}</td></tr>`}).join('');
+}
+render();
+</script>
+</body></html>
