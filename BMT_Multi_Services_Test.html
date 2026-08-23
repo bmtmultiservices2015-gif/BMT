@@ -10,6 +10,19 @@
 .app{display:flex;min-height:100vh}.side{width:230px;background:linear-gradient(180deg,#06265f,#031d4a);color:#fff;padding:20px 14px;position:fixed;height:100vh}.logo{font-size:28px;font-weight:900;text-align:center;margin:10px 0}.sub{text-align:center;font-size:12px;opacity:.8;margin-bottom:22px}.nav button{width:100%;border:0;background:transparent;color:white;text-align:left;padding:12px 14px;border-radius:12px;margin:4px 0;font-size:15px;cursor:pointer}.nav button.active,.nav button:hover{background:#1677ff}.logout{margin-top:18px;background:#143d73!important}
 .main{margin-left:230px;width:calc(100% - 230px);padding:24px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.top h1{margin:0;font-size:28px}.top p{margin:4px 0;color:#68758b}.user{background:#fff;padding:10px 14px;border-radius:14px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:#fff;border-radius:18px;padding:0 0 14px;overflow:hidden;box-shadow:0 3px 14px #0000000c}.card .bar{padding:13px 16px;color:#fff;font-weight:800}.red{background:var(--red)}.orange{background:var(--orange)}.green{background:var(--green)}.cyan{background:var(--cyan)}.card .body{padding:14px 16px}.money{font-size:22px;font-weight:800;margin:8px 0 14px}.btn{border:0;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:700}.full{width:100%}.btn-red{background:var(--red);color:#fff}.btn-orange{background:var(--orange);color:#fff}.btn-green{background:var(--green);color:#fff}.btn-blue{background:var(--blue);color:#fff}.btn-yellow{background:var(--yellow);color:#111}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0}.stat,.panel{background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px #0000000c}.stat b{font-size:25px}.grid{display:grid;grid-template-columns:1.4fr .9fr;gap:16px}.panel h2{font-size:18px;margin:0 0 14px}.tx{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:12px 0}.tx:last-child{border-bottom:0}.tag{font-size:11px;padding:4px 7px;border-radius:20px;background:#e9f7ed;color:#14833a}.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.quick button{padding:16px 8px;border:1px solid #e5e8ee;background:#fff;border-radius:14px;cursor:pointer;font-weight:700}.section{display:none}.section.active{display:block}.form{display:grid;gap:12px;max-width:650px}.form label{font-weight:700}.form input,.form select{padding:12px;border:1px solid #ccd3df;border-radius:10px;font-size:15px}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:11px;border-bottom:1px solid #eee}.notice{padding:12px;border-radius:12px;background:#fff6d8;margin-bottom:14px}.small{font-size:12px;color:#6c778a}
 @media(max-width:850px){.side{width:76px}.side .hide{display:none}.main{margin-left:76px;width:calc(100% - 76px);padding:14px}.cards{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+@media print {
+  .side,
+  button {
+    display: none !important;
+  }
+  .app {
+    display: block !imprtant;
+  }
+  main{
+    width: 100% !important;
+    margin: 0 !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -119,8 +132,12 @@ function render(){
  let services=['MonCash','NatCash','Rechaj Telefòn','Rechaj Paryaj','Vant Glas'];document.getElementById('reportRows').innerHTML=services.map(s=>{let a=data.tx.filter(x=>x.service===s&&x.type==='in').reduce((z,x)=>z+x.amount,0),o=data.tx.filter(x=>x.service===s&&x.type==='out').reduce((z,x)=>z+x.amount,0),p=data.tx.filter(x=>x.service===s).reduce((z,x)=>z+x.profit,0);return `<tr><td>${s}</td><td>${money(a)}</td><td>${money(o)}</td><td>${money(p)}</td></tr>`}).join('');
 }
 function printReport(){
+  const oldTitle = document.title;
+  document.title = "Rapò BMT Multi-Services";
   window.print();
+  document.title = oldTitle;
 }
+
 render();
 </script>
 </body></html>
