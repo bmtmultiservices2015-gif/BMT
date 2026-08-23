@@ -72,6 +72,11 @@
 
 <section id="reports" class="section">
 <div class="top"><div><h1>Rapò</h1><p>Rezime aktivite sistèm nan.</p></div></div>
+<div style="text-align:right; marging-button:10px;">
+  <button onclick="printReport()">
+    ENPRIME RAPÒ
+  </button>
+</div>
 <div class="panel"><table class="table"><thead><tr><th>Sèvis</th><th>Antre</th><th>Soti</th><th>Benefis</th></tr></thead><tbody id="reportRows"></tbody></table></div>
 </section>
 
@@ -112,6 +117,9 @@ function render(){
  let ins=data.tx.filter(x=>x.type==='in').reduce((a,x)=>a+x.amount,0),outs=data.tx.filter(x=>x.type==='out').reduce((a,x)=>a+x.amount,0);document.getElementById('in').textContent=money(ins);document.getElementById('out').textContent=money(outs);
  document.getElementById('recent').innerHTML=data.tx.slice(0,7).map(x=>`<div class="tx"><span><b>${x.service}</b><br><span class="small">${x.time} ${x.note||''}</span></span><span><b>${x.type==='in'?'+':'-'}${money(x.amount)}</b><br><span class="tag">Siksè</span></span></div>`).join('')||'<p class="small">Pa gen tranzaksyon ankò.</p>';
  let services=['MonCash','NatCash','Rechaj Telefòn','Rechaj Paryaj','Vant Glas'];document.getElementById('reportRows').innerHTML=services.map(s=>{let a=data.tx.filter(x=>x.service===s&&x.type==='in').reduce((z,x)=>z+x.amount,0),o=data.tx.filter(x=>x.service===s&&x.type==='out').reduce((z,x)=>z+x.amount,0),p=data.tx.filter(x=>x.service===s).reduce((z,x)=>z+x.profit,0);return `<tr><td>${s}</td><td>${money(a)}</td><td>${money(o)}</td><td>${money(p)}</td></tr>`}).join('');
+}
+function printReport(){
+  window.print();
 }
 render();
 </script>
