@@ -340,7 +340,7 @@
       }
 
       .app {
-        display: block !imprtant;
+        display: block !important;
       }
 
       main {
@@ -486,6 +486,26 @@
           <div id="stockMsg" class="small"></div>
         </div>
       </section>
+      <section id="products" class="section">
+        <div class="top">
+          <h2>Machandiz</h2>
+          </div>
+        <div class="panel form">
+          <label>Non Machandiz
+            <input id="productName" type="text">
+          </label>
+          <label>Kantite
+            <input id="productQty" type="number">
+          </label>
+          <label>Pri achte
+            <input id="productBuy" type="number">
+          </label>
+          <label>Pri Vann
+            <input id="productSell" type="number">
+          </label>
+          <button class="btn" onclick="addProduct()">+ ajoute Machandiz</button>
+          <div id="productMsg"></div>
+        </div>
 
       <section id="reports" class="section">
         <div class="reportHeader">
@@ -504,7 +524,7 @@
             <p>Rezime aktivite sistèm nan.</p>
           </div>
         </div>
-        <div style="text-align:right; marging-button:10px;">
+        <div style="text-align:right; margin-bottom:10px;">
           <button onclick="printReport()">
             ENPRIME RAPÒ
           </button>
@@ -578,7 +598,7 @@
       });
       document.getElementByID("totalIn").textContent = money(totalIn);
       document.getElementByID("totalOut").textContent = money(totalOut);
-      document.getElementByID("totalProfit")textContent = money(totalProfit);
+      document.getElementByID("totalProfit").textContent = money(totalProfit);
       document.getElementById('mon').textContent = money(data.balances.MonCash); document.getElementById('nat').textContent = money(data.balances.NatCash); document.getElementById('bet').textContent = money(data.balances['Rechaj Paryaj']); document.getElementById('ice').textContent = data.ice; document.getElementById('ice2').textContent = data.ice;
       let total = Object.values(data.balances).reduce((a, b) => a + Number(b || 0), 0); document.getElementById('total').textContent = money(total); document.getElementById('profit').textContent = money(data.profit); document.getElementById('p2').textContent = money(data.profit); document.getElementById('count').textContent = data.tx.length;
       let ins = data.tx.filter(x => x.type === 'in').reduce((a, x) => a + x.amount, 0), outs = data.tx.filter(x => x.type === 'out').reduce((a, x) => a + x.amount, 0); document.getElementById('in').textContent = money(ins); document.getElementById('out').textContent = money(outs);
