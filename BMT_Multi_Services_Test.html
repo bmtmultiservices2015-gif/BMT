@@ -584,6 +584,31 @@
       document.getElementById('addIce').value = ''; document.getElementById('sellIce').value = ''; document.getElementById('icePrice').value = '';
       document.getElementById('stockMsg').textContent = 'Stock la mete ajou.'; save();
     }
+     function addProduct(){
+      let name = document.getElementByID("productName").value.trim();
+      let qty = Number(document.getElementByID("productQty").value);
+      let buy = Number(document.getElementByID("productBuy").value);
+      let sell = Number(document.getElementByID("productSell") .value);
+      if(!name|| qty<=0 || buy<0 || sell<0){
+        document.getElementByID("productMsg").textContent=
+          "Tanpri ranpli tout enfomasyon yo.";
+        return;
+    }
+      if (!data.products)data.products = [];
+      data.products.push({
+        name: name,
+        qty: qty,
+        sell: sell
+      });
+      save();
+      document.getElementByID("productName").value="";
+      document.getElementByID("productQty").value="";
+      document.getElementByID("productBuy").value="";
+      document.getElementByID("productSell").value="";
+      document.getElementByID("productMsg").textContent=
+        "Machandiz la ajoute avek sikse.";
+      render();
+     }
     function resetData() {if (confirm('Ou vle efase tout done tès yo?')) {localStorage.removeItem(key); location.reload()} }
     function render() {
       document.getElementByID("reportDate").textContent =
