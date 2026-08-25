@@ -609,7 +609,12 @@
         "Machandiz la ajoute avek sikse.";
       render();
      }
-    function resetData() {if (confirm('Ou vle efase tout done tès yo?')) {localStorage.removeItem(key); location.reload()} }
+    function resetData(){
+      if (confirm('Ou vle efase tout done tès yo?')) {
+        localStorage.removeItem(key);
+        location.reload();
+      }
+     }
     function render(){
       document.getElementByID("reportDate").textContent =
         new Date().toLocaleString();
